@@ -1,10 +1,10 @@
 import { ObjectID } from "mongodb";
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ObjectIdColumn } from "typeorm";
 import { IPlate } from "../index.d";
 
 @Entity()
 export class Plate implements IPlate{
-  @PrimaryColumn()
+  @ObjectIdColumn()
   _id!: string;
 
   @Column({length: 100})

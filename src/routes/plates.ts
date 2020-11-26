@@ -53,7 +53,7 @@ class BoilerRouter {
     return async (req: Request, res: Response) => {
       try {
         const plate = await req.body; 
-        const result = router.repository.create(plate);
+        const result = await router.repository.save(plate);
         res.send({success: true, plate: result});
       } catch (error) {
         console.log("Caught error:", error);

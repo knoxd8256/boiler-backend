@@ -3,23 +3,24 @@ import cors from "cors";
 import morgan from 'morgan';
 import { MongoRepository, Repository } from "typeorm";
 import { Plate } from "./entity/Plate";
+import { RouterListEntry } from './index.d';
 
 export class App {
   // Properties.
   port: number;
   app: express.Application;
-  router: express.Router;
+  routers: RouterListEntry[];
   plateRepository: MongoRepository<Plate> | Repository<Plate>;
 
   // Constructor.
   constructor(
     port: number,
-    router: express.Router,
+    routers: RouterListEntry[],
     plateRepository: MongoRepository<Plate> | Repository<Plate>
   ) {
     this.port = port;
     this.app = express();
-    this.router = router;
+    this.routers = routers;
     this.plateRepository = plateRepository;
   }
 
@@ -32,7 +33,9 @@ export class App {
     this.app.use(morgan('common'))
 
     // Route initialization.
-    this.app.use("/", this.router);
+    this.routers.forEach(({prefix, router}: RouterListEntry) => {
+      this.app.use(prefix, router);
+    });
     console.log("Done initializing!");
   }
 

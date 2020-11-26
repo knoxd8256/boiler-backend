@@ -13,6 +13,7 @@ import { BoilerRouter } from "./routes/plates";
 
 // Model imports.
 import { Plate } from "./entity/Plate";
+import { RouterListEntry } from "./index.d";
 
 // Connect to database.
 const getPlateRepository = async (): Promise<
@@ -28,9 +29,11 @@ const getPlateRepository = async (): Promise<
 
 // Create and run application.
 const main = async () => {
+  const routers: RouterListEntry[] = [];
   const plateRepository = await getPlateRepository();
-  const { router } = new BoilerRouter(plateRepository);
-  const application = new App(5000, router, plateRepository);
+  const plateRouter = new BoilerRouter(plateRepository).router;
+  routers.push({router: plateRouter, prefix: "/"})
+  const application = new App(5000, routers, plateRepository);
   application.run();
 };
 
