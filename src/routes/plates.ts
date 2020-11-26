@@ -21,6 +21,7 @@ class BoilerRouter {
     this.router.route("/").get(this.getAllPlates(this));
     this.router.route("/plate/:id").get(this.getPlateById(this));
     this.router.route("/plate").post(this.postOnePlate(this));
+    this.router.route("/plate/:id").delete(this.deleteOnePlate(this));
   }
 
   // ---- Generators for route callbacks ---- //
@@ -43,7 +44,7 @@ class BoilerRouter {
         res.send({success: true, plate: plate});
       } catch (error) {
         console.error("Caught error:", error);
-        res.send({ success: false, error: "Something went wrong. Check your id." });
+        res.send({ success: false, error: "Plate not found. Check your plate id." });
       }
     };
   }
@@ -57,6 +58,18 @@ class BoilerRouter {
       } catch (error) {
         console.log("Caught error:", error);
         res.send({ success: false, error: "Something went wrong. Check the plate formatting." });
+      }
+    };
+  }
+
+  deleteOnePlate(router: BoilerRouter): RouteCallback {
+    return async (req: Request, res: Response) => {
+      try {
+        router.repository.delete(req.params.id);
+        res.send({success: true, plate: req.params.id});
+      } catch (error) {
+        console.log("Caught error:", error);
+        res.send({ success: false, error: "Plate not found. Check your plate id." });
       }
     };
   }
