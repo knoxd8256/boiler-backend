@@ -1,0 +1,32 @@
+{
+  "name": "boiler-backend",
+  "version": "0.1.0",
+  "description": "Backend server for Boiler.ts",
+  "main": "dist/index.js",
+  "repository": "https://github.com/knoxd8256/boiler-backend",
+  "author": "David Knox <dakdave26@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "prestart": "tsc",
+    "develop:nodemon": "nodemon dist/index.ts",
+    "develop:tsc": "tsc --watch",
+    "develop": "run-p develop:*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/node": "^14.14.10",
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.6",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.8",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.29"
+  }
+}
