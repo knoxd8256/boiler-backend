@@ -5,7 +5,7 @@ import { IPlate } from "../index.d";
 @Entity()
 export class Plate implements IPlate{
   @ObjectIdColumn()
-  _id!: string;
+  _id!: ObjectID;
 
   @Column({length: 100})
   name!: string;

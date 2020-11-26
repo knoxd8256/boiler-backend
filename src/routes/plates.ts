@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { ObjectId } from "mongodb";
 import { MongoRepository, Repository } from "typeorm";
 import { Plate } from "../entity/Plate";
 
@@ -52,7 +53,8 @@ class BoilerRouter {
   postOnePlate(router: BoilerRouter): RouteCallback {
     return async (req: Request, res: Response) => {
       try {
-        const plate = await req.body; 
+        let plate = await req.body; 
+        plate._id = new ObjectId(plate._id);
         const result = await router.repository.save(plate);
         res.send({success: true, plate: result});
       } catch (error) {
